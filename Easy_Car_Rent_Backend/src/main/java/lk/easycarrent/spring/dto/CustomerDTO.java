@@ -19,5 +19,5 @@ public class CustomerDTO {
     private String driveLicenseNumber;
     private String address;
     private String contactNumber;
-    private List<Rent> rentOrder = new ArrayList<>();
+    private List<RentDTO> rentOrder = new ArrayList<>();
 }

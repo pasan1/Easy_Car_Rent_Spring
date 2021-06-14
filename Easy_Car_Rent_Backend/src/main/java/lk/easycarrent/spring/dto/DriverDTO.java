@@ -17,5 +17,5 @@ public class DriverDTO {
     private String address;
     private String contactNumber;
     private String nic;
-    private List<Rent> rentOrder;
+    private List<RentDTO> rentOrder;
 }

@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class ScheduleDTO {
     private String scheduleID;
-    private Rent rentID;
-    private Driver driverID;
+    private RentDTO rentID;
+    private DriverDTO driverID;
 }

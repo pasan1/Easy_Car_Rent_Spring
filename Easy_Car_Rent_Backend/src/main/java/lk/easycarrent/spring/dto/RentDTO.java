@@ -18,7 +18,7 @@ public class RentDTO {
     private String reason;
     private double totalFee;
     private String date;
-    private Customer customer;
-    private Vehicle vehicle;
-    private Driver driver;
+    private CustomerDTO customer;
+    private VehicleDTO vehicle;
+    private DriverDTO driver;
 }

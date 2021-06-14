@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class RentPaymentDTO {
     private String paymentID;
-    private RentPayment rentID;
+    private RentPaymentDTO rentID;
     private String date;
     private double fee;
     private String method;

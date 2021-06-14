@@ -12,5 +12,5 @@ public class DamageDTO {
     private String damageID;
     private double fee;
     private String reason;
-    private Returns returnsID;
+    private ReturnsDTO returnsID;
 }

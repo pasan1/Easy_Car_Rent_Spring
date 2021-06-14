@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class ReturnsDTO {
     private String returnsID;
-    private Rent rentID;
+    private RentDTO rentID;
     private double feeReturn;
     private String reason;
 }

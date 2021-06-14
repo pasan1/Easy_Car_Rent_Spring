@@ -25,5 +25,5 @@ public class VehicleDTO {
     private double monthlyRent;
     private String dailyKM;
     private String monthlyKM;
-    private List<Rent> rentOrder;
+    private List<RentDTO> rentOrder;
 }

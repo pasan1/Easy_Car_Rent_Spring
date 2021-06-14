@@ -15,6 +15,5 @@ public class MaintainDTO {
     private String status;
     private String reason;
     private String date;
-    @ManyToOne()
-    private Vehicle vehicle;
+    private VehicleDTO vehicle;
 }
