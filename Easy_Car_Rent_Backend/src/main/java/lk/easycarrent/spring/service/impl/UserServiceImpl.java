@@ -63,4 +63,13 @@ public class UserServiceImpl implements UserService {
             repo.save(mapper.map(dto, User.class));
         }
     }
+
+    @Override
+    public UserDTO searchByUser(String userName, String password) {
+        User op = repo.searchByUserNameAndPassword(userName, password);
+        if (!op.equals(null)) {
+            return mapper.map(op, UserDTO.class);
+        }
+        return null;
+    }
 }

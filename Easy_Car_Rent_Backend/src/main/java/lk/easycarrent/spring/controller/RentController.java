@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/easycarrent/rent")
+@CrossOrigin
 public class RentController {
 
     @Autowired

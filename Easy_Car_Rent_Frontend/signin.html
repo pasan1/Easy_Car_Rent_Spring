@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Signin| Rent Your Car</title>
+
+    <link rel="icon" href="asserts/img/Easy_logo.png">
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="asserts/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/signin.css">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+</head>
+<body class="text-center">
+
+<main class="form-signin">
+    <form>
+        <img class="mb-4" src="asserts/img/Easy_logo.png" alt="" width="100" height="100">
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+        <div class="form-floating">
+            <input type="text" class="form-control" id="txtUserName" placeholder="User Name">
+            <label for="txtUserName">User Name</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="txtPassword" placeholder="Password">
+            <label for="txtPassword">Password</label>
+        </div>
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="button" id="btnSignIn">Sign in</button>
+        <p class="mt-5 mb-3 text-muted"><a href="index.html">Easy Car Rent</a><br>&copy; 2021</p>
+    </form>
+</main>
+
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/jquery.session.min.js"></script>
+<script>
+    $('#btnSignIn').click(function () {
+        let userName = $('#txtUserName').val();
+        let password = $('#txtPassword').val();
+
+        $.ajax({
+            method: 'GET',
+            url: 'http://localhost:8080/Easy_Car_Rent_Backend_war_exploded/easycarrent/user/searchuser/'+userName+'/'+password,
+            async: true,
+            contentType:'application/x-www-form-urlencoded',
+            success: function (data) {
+                console.log(data);
+                console.log(data.data.role);
+                if (data.data.role==="admin"){
+                    $.session.set("userID", data.data.userID);
+                    $.session.set("obj", data.data);
+                    $.session.set("text", data.data.role);
+                    document.location.href="dashboard.html";
+                    // window.load("dashboard.html");
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

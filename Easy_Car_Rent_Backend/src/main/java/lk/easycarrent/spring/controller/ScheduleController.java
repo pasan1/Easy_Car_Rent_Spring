@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/easycarrent/schedule")
+@CrossOrigin
 public class ScheduleController {
 
     @Autowired

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/easycarrent/returns")
+@CrossOrigin
 public class ReturnsController {
 
     @Autowired

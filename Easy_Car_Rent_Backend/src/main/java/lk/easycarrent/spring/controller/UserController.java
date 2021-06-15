@@ -13,13 +13,14 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/easycarrent/user")
+@CrossOrigin
 public class UserController {
 
     @Autowired
     private UserService service;
 
-    @GetMapping(path = "search")
-    public ResponseEntity searchUser(String id) {
+    @GetMapping(path = "search/{id}")
+    public ResponseEntity searchUser(@PathVariable String id) {
         UserDTO dto = service.searchUser(id);
         return new ResponseEntity(new StandardResponse("200", "Done", dto), HttpStatus.OK);
     }
@@ -52,5 +53,11 @@ public class UserController {
     public ResponseEntity getAllUser() {
         ArrayList<UserDTO> all = service.getAllUser();
         return new ResponseEntity(new StandardResponse("200", "Done", all), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "searchuser/{name}/{password}")
+    public ResponseEntity searchByUser(@PathVariable String name, @PathVariable String password) {
+        UserDTO dto = service.searchByUser(name, password);
+        return new ResponseEntity(new StandardResponse("200", "Done", dto), HttpStatus.OK);
     }
 }

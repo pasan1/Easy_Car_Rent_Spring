@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/easycarrent/driver")
+@CrossOrigin
 public class DriverController {
 
     @Autowired

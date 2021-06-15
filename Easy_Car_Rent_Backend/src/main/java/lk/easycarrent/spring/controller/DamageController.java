@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/easycarrent/damage")
+@CrossOrigin
 public class DamageController {
 
     @Autowired

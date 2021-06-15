@@ -14,13 +14,14 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/easycarrent/customer")
+@CrossOrigin
 public class CustomerController {
 
     @Autowired
     private CustomerService service;
 
-    @GetMapping(path = "search")
-    public ResponseEntity searchCustomer(String id) {
+    @GetMapping(path = "search/{id}")
+    public ResponseEntity searchCustomer(@PathVariable String id) {
         CustomerDTO dto = service.searchCustomer(id);
         return new ResponseEntity(new StandardResponse("200", "Done", dto), HttpStatus.OK);
     }

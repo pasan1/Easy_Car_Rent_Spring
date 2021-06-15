@@ -15,4 +15,6 @@ public interface UserService {
     ArrayList<UserDTO> getAllUser();
 
     void updateUser(UserDTO dto);
+
+    UserDTO searchByUser(String userName, String password);
 }

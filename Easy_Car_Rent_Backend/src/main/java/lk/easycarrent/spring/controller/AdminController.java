@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/easycarrent/admin")
+@CrossOrigin
 public class AdminController {
 
     @Autowired
