@@ -144,19 +144,22 @@
 <script src="js/main.js"></script>
 <script src="js/dashboard.js"></script>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
 
         $('#dash-view').load("sub/dash-default.html");
-        $('#userID').text("Pasan");
+        // $('#userID').text("Pasan");
 
         $.ajax({
             method: 'GET',
-            url: 'http://localhost:8080/Easy_Car_Rent_Backend_war_exploded/easycarrent/user/search/'+$.session.get("userID"),
+            url: 'http://localhost:8080/Easy_Car_Rent_Backend_war_exploded/easycarrent/admin/search/' + $.session.get("userID"),
             async: true,
-            contentType:'application/x-www-form-urlencoded',
+            contentType: 'application/x-www-form-urlencoded',
             success: function (data) {
+                // $.session.set("adminID", data.data.adminID);
+                // $.session.set("adminFName", data.data.firstName);
+                // $.session.set("adminLName", data.data.lastName);
+                $('#userID').text(data.data.firstName + " " + data.data.lastName);
                 console.log(data);
-                console.log(data.data.role);
             }
         });
 

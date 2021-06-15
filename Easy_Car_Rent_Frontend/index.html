@@ -43,7 +43,8 @@
                     </li>
                 </ul>
                 <form class="d-flex">
-                    <a href="signin.html"><button class="btn btn-outline-light" type="submit">Login</button></a>
+                    <a href="#" class="text-light" style="text-decoration: none"><button class="btn btn-outline-light" type="submit" id="btnSignup">SignUp</button></a>
+                    <a href="signin.html" class="text-light" style="text-decoration: none"><button class="btn btn-outline-light" type="submit" id="btnLogin">Login</button></a>
                 </form>
             </div>
         </div>
@@ -165,9 +166,15 @@
 <!--footer end-->
 
 <script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/jquery.session.min.js"></script>
 <script src="js/bootstrap/bootstrap.bundle.js"></script>
 <script src="asserts/fontawesome/js/all.min.js"></script>
 <script src="js/main.js"></script>
-
+<script>
+    $('#btnLogin').click(function () {
+        document.location.href="signin.html";
+        alert("Sucess");
+    });
+</script>
 </body>
 </html>

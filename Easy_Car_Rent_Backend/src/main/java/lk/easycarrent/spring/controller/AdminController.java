@@ -19,8 +19,8 @@ public class AdminController {
     @Autowired
     private AdminService service;
 
-    @GetMapping(path = "search")
-    public ResponseEntity searchAdmin(String id) {
+    @GetMapping(path = "search/{id}")
+    public ResponseEntity searchAdmin(@PathVariable String id) {
         AdminDTO dto = service.searchAdmin(id);
         return new ResponseEntity(new StandardResponse("200", "Done", dto), HttpStatus.OK);
     }
