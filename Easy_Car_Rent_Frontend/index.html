@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="asserts/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-<!--    <link rel="stylesheet" href="css/features.css">-->
+    <!--    <link rel="stylesheet" href="css/features.css">-->
 
 </head>
 <body>
@@ -43,8 +43,8 @@
                     </li>
                 </ul>
                 <form class="d-flex">
-                    <a href="#" class="text-light" style="text-decoration: none"><button class="btn btn-outline-light" type="submit" id="btnSignup">SignUp</button></a>
-                    <a href="signin.html" class="text-light" style="text-decoration: none"><button class="btn btn-outline-light" type="submit" id="btnLogin">Login</button></a>
+                    <button class="btn btn-outline-light" type="button" id="btnSignup">SignUp</button>
+                    <button class="btn btn-outline-light" type="button" id="btnLogin">Login</button>
                 </form>
             </div>
         </div>
@@ -55,7 +55,8 @@
 <!--carousel start-->
 <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
@@ -98,11 +99,14 @@
     <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
         <div class="col d-flex align-items-start">
             <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
-                <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"/></svg>
+                <svg class="bi" width="1em" height="1em">
+                    <use xlink:href="#toggles2"/>
+                </svg>
             </div>
             <div>
                 <h2>Featured title</h2>
-                <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence
+                    and probably just keep going until we run out of words.</p>
                 <a href="#" class="btn btn-primary">
                     Primary button
                 </a>
@@ -110,11 +114,14 @@
         </div>
         <div class="col d-flex align-items-start">
             <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
-                <svg class="bi" width="1em" height="1em"><use xlink:href="#cpu-fill"/></svg>
+                <svg class="bi" width="1em" height="1em">
+                    <use xlink:href="#cpu-fill"/>
+                </svg>
             </div>
             <div>
                 <h2>Featured title</h2>
-                <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence
+                    and probably just keep going until we run out of words.</p>
                 <a href="#" class="btn btn-primary">
                     Primary button
                 </a>
@@ -122,11 +129,14 @@
         </div>
         <div class="col d-flex align-items-start">
             <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
-                <svg class="bi" width="1em" height="1em"><use xlink:href="#tools"/></svg>
+                <svg class="bi" width="1em" height="1em">
+                    <use xlink:href="#tools"/>
+                </svg>
             </div>
             <div>
                 <h2>Featured title</h2>
-                <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence
+                    and probably just keep going until we run out of words.</p>
                 <a href="#" class="btn btn-primary">
                     Primary button
                 </a>
@@ -172,7 +182,7 @@
 <script src="js/main.js"></script>
 <script>
     $('#btnLogin').click(function () {
-        document.location.href="signin.html";
+        document.location.href = "signin.html";
         alert("Sucess");
     });
 </script>

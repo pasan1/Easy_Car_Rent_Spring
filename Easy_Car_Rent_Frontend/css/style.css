@@ -25,9 +25,9 @@
         right: 0;
         transform: translate(0, -50%);
         margin-right: 5px;
+        margin-top: 30px;
     }
     .site-header #navbarSupportedContent form button{
-        margin-top: 60px;
         margin-right: 10px;
     }
 }
