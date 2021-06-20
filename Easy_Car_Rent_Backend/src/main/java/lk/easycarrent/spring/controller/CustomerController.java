@@ -20,27 +20,31 @@ public class CustomerController {
     @Autowired
     private CustomerService service;
 
+    private static final String UPLOADED_FOLDER = "lk/easycarrent/spring/saveFile/customer";
+
     @GetMapping(path = "search/{id}")
     public ResponseEntity searchCustomer(@PathVariable String id) {
-        CustomerDTO dto = service.searchCustomer(id);
+        CustomerDTO dto = service.searchCustomer(Long.valueOf(id));
         return new ResponseEntity(new StandardResponse("200", "Done", dto), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity saveCustomer(@RequestBody CustomerDTO dto) {
-        if (dto.getCustomerID().trim().length() <= 0 || dto.getAddress().trim().length() <= 0 ||
-                dto.getFirstName().trim().length() <= 0 || dto.getLasTName().trim().length() <= 0 ||
-                dto.getContactNumber().trim().length() <= 0 || dto.getDriveLicenseNumber().trim().length() <= 0 ||
-                dto.getNicNumber().trim().length() <= 0) {
-            throw new ValidateException("Fields Can't be empty");
-        }
+//        if (dto.getCustomerID().trim().length() <= 0 || dto.getAddress().trim().length() <= 0 ||
+//                dto.getFirstName().trim().length() <= 0 || dto.getLastName().trim().length() <= 0 ||
+//                dto.getContactNumber().trim().length() <= 0 || dto.getDriveLicenseNumber().trim().length() <= 0 ||
+//                dto.getNic().trim().length() <= 0) {
+//            throw new ValidateException("Fields Can't be empty");
+//        }
+        System.out.println("saveCustomer(controller) : "+dto);
         service.addCustomer(dto);
+
         return new ResponseEntity(new StandardResponse("201", "Done", dto), HttpStatus.CREATED);
     }
 
     @PutMapping
     public ResponseEntity updateCustomer(@RequestBody CustomerDTO dto) {
-        if (dto.getCustomerID().trim().length() <= 0) {
+        if (dto.getCustomerID() <= 0) {
             throw new NotFoundException("No ID provided to update");
         }
         service.updateCustomer(dto);
@@ -49,7 +53,7 @@ public class CustomerController {
 
     @DeleteMapping
     public ResponseEntity deleteCustomer(String id) {
-        service.deleteCustomer(id);
+        service.deleteCustomer(Long.valueOf(id));
         return new ResponseEntity(new StandardResponse("200", "Done", null), HttpStatus.OK);
     }
 
@@ -59,4 +63,43 @@ public class CustomerController {
         return new ResponseEntity(new StandardResponse("200", "Done", allCustomers), HttpStatus.OK);
     }
 
+    @GetMapping(path = "searchByName/{name}")
+    public ResponseEntity searchByName(@PathVariable String name) {
+        ArrayList<CustomerDTO> allCustomers = service.SearchCustomersByName(name);
+        return new ResponseEntity(new StandardResponse("200", "Done", allCustomers), HttpStatus.OK);
+    }
+
+//    @PostMapping(path = "/{upload}")
+//    public ResponseEntity upload(@RequestParam("file") MultipartFile[] file, @RequestParam("id") String id) throws JsonProcessingException {
+//
+//        ObjectMapper mapper =new ObjectMapper();
+//
+//        CustomerDTO customerDTO=mapper.readValue(id,CustomerDTO.class);
+//
+//        for (MultipartFile files : file) {
+//
+//            String fileNames = UUID.randomUUID().toString();
+//            String contentType = files.getContentType();
+//            String[] split = contentType.split("/");
+//
+//            File destinationFile = new File(UPLOADED_FOLDER + fileNames + "." + split[1]);
+//
+//            try {
+//
+//                files.transferTo(destinationFile);
+//
+//                CustomerNicImageDTO nicImage = new CustomerNicImageDTO(customerDTO.getNic(), "assests/Image/CustomerNicImage/"+fileNames+"."+split[1]);
+//                service.addCustomer(customerDTO);
+//                nicImageService.addCustomerNicImage(nicImage);
+//
+//
+//            } catch (Exception e) {
+//
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        StandardResponse response = new StandardResponse("200", "Success", null);
+//        return new ResponseEntity(response, HttpStatus.CREATED);
+//    }
 }

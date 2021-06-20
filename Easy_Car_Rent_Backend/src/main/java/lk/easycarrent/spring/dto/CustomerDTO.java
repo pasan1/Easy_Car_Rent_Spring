@@ -12,12 +12,24 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class CustomerDTO {
-    private String customerID;
+    private Long customerID;
     private String firstName;
-    private String lasTName;
-    private String nicNumber;
+    private String lastName;
+    private String nic;
     private String driveLicenseNumber;
     private String address;
     private String contactNumber;
-    private List<RentDTO> rentOrder = new ArrayList<>();
+    private String nicImage;
+//    private List<RentDTO> rentOrder = new ArrayList<>();
+
+
+    public CustomerDTO(String firstName, String lastName, String nic, String driveLicenseNumber, String address, String contactNumber, String nicImage) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nic = nic;
+        this.driveLicenseNumber = driveLicenseNumber;
+        this.address = address;
+        this.contactNumber = contactNumber;
+        this.nicImage = nicImage;
+    }
 }

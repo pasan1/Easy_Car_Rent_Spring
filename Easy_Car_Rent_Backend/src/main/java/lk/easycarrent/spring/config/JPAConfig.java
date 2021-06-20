@@ -14,16 +14,20 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.naming.NamingException;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "lk.easycarrent.spring.repo")
 @PropertySource("classpath:application.properties")
-public class JPAConfig {
+public class JPAConfig implements WebMvcConfigurer {
 
     @Autowired
     Environment env;
@@ -61,5 +65,13 @@ public class JPAConfig {
     public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
         return new JpaTransactionManager(emf);
     }
+
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        Path fileUploadDir = Paths.get("./lk/easycarrent/spring/saveFile");
+//        String imageUploadPath =  fileUploadDir.toFile().getAbsolutePath();
+//
+//        registry.addResourceHandler("./lk/easycarrent/spring/saveFile/**").addResourceLocations("file:/" + imageUploadPath +"/");
+//    }
 
 }

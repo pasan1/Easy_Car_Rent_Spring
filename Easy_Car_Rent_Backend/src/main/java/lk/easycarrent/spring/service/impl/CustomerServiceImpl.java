@@ -27,14 +27,17 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void addCustomer(CustomerDTO dto) {
-        if (customerRepo.existsById(dto.getCustomerID())) {
+        if (customerRepo.existsCustomerByNic(dto.getNic())) {
             throw new ValidateException("Customer Already Exist");
         }
+
+        System.out.println("addCustomer(service) : "+dto);
+
         customerRepo.save(mapper.map(dto, Customer.class));
     }
 
     @Override
-    public void deleteCustomer(String id) {
+    public void deleteCustomer(Long id) {
         if (!customerRepo.existsById(id)) {
             throw new ValidateException("No Customer for Delete..!");
         }
@@ -42,7 +45,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO searchCustomer(String id) {
+    public CustomerDTO searchCustomer(Long id) {
         Optional<Customer> customer = customerRepo.findById(id);
         if (customer.isPresent()) {
             return mapper.map(customer.get(), CustomerDTO.class);
@@ -53,6 +56,13 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public ArrayList<CustomerDTO> getAllCustomers() {
         List<Customer> all = customerRepo.findAll();
+        return mapper.map(all, new TypeToken<ArrayList<CustomerDTO>>() {
+        }.getType());
+    }
+
+    @Override
+    public ArrayList<CustomerDTO> SearchCustomersByName(String name) {
+        List<Customer> all = customerRepo.searchCustomersByName(name);
         return mapper.map(all, new TypeToken<ArrayList<CustomerDTO>>() {
         }.getType());
     }

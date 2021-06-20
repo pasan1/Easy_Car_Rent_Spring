@@ -11,23 +11,6 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/dashboard.rtl.css">
-
-    <!-- Font Awesome -->
-    <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-            rel="stylesheet"
-    />
-    <!-- Google Fonts -->
-    <link
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-            rel="stylesheet"
-    />
-    <!-- MDB -->
-    <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css"
-            rel="stylesheet"
-    />
-
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -78,10 +61,10 @@
                             Manage Customers
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" id="lblManageVehicles">
                         <a class="nav-link" href="#">
-                            <span data-feather="shopping-cart"></span>
-                            Products
+                            <span data-feather="truck"></span>
+                            Manage Vehicles
                         </a>
                     </li>
                     <li class="nav-item">
@@ -160,8 +143,6 @@
 <script src="js/main.js"></script>
 <script src="js/dashboard.js"></script>
 
-<!-- MDB -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
 <script>
     $(document).ready(function () {
 
@@ -188,11 +169,19 @@
         $('#dash-view').load("sub/dash-default.html");
         $('#lblDashboard a').addClass('active');
         $('#lblManageCustomers a').removeClass('active');
+        $('#lblManageVehicles a').removeClass('active');
     });
     $('#lblManageCustomers').click(function () {
         $('#dash-view').load("sub/dash-customer.html");
         $('#lblManageCustomers a').addClass('active');
         $('#lblDashboard a').removeClass('active');
+        $('#lblManageVehicles a').removeClass('active');
+    });
+    $('#lblManageVehicles').click(function () {
+        $('#dash-view').load("sub/dash-customer.html");
+        $('#lblManageVehicles a').addClass('active');
+        $('#lblDashboard a').removeClass('active');
+        $('#lblManageCustomers a').removeClass('active');
     });
 </script>
 </body>
