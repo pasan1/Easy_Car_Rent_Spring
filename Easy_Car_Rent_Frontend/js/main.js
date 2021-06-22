@@ -4,22 +4,19 @@ function getImgPath(path) {
 }
 
 function uploadImage(data) {
-    let result;
+    var result;
     $.ajax({
         method: "POST",
         url: "http://localhost:8080/Easy_Car_Rent_Backend_war_exploded/file",
         processData: false,
-        async: true,
+        async: false,
         data: data,
         contentType: false,
         success: function (data) {
-            console.log(data.data);
-            $.session.set("imgPath", data.data);
             result = data.data;
-
+            console.log("result : " + result);
         }, error: function (data) {
             alert("File : " + data.data);
-            $.session.set("imgPath", "");
             result = data.data;
         }
     });

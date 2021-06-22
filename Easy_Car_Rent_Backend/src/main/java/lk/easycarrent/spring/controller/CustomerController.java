@@ -51,8 +51,8 @@ public class CustomerController {
         return new ResponseEntity(new StandardResponse("200", "Done", dto), HttpStatus.OK);
     }
 
-    @DeleteMapping
-    public ResponseEntity deleteCustomer(String id) {
+    @DeleteMapping(path = "delete/{id}")
+    public ResponseEntity deleteCustomer(@PathVariable String id) {
         service.deleteCustomer(Long.valueOf(id));
         return new ResponseEntity(new StandardResponse("200", "Done", null), HttpStatus.OK);
     }

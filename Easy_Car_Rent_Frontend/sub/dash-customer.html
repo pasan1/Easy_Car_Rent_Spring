@@ -308,7 +308,7 @@
                     driveLicenseNumber: drivingLicense,
                     address: address,
                     contactNumber: contactNumber,
-                    nicImage: $.session.get("imgPath")
+                    nicImage: uploadImage(data)
                     // rentOrder: null
                 }),
                 success: function (data) {
@@ -354,7 +354,7 @@
                     driveLicenseNumber: drivingLicense,
                     address: address,
                     contactNumber: contactNumber,
-                    nicImage: $.session.get("imgPath")
+                    nicImage: uploadImage(data)
                     // rentOrder: null
                 }),
                 success: function (data) {
@@ -375,9 +375,8 @@
 
         $.ajax({
             method: "DELETE",
-            url: "http://localhost:8080/Easy_Car_Rent_Backend_war_exploded/easycarrent/customer",
+            url: "http://localhost:8080/Easy_Car_Rent_Backend_war_exploded/easycarrent/customer/delete/"+customerID,
             async: true,
-            data: customerID,
             success: function (data) {
                 console.log(data.data);
                 clearForm();
