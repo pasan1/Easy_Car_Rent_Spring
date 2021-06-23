@@ -19,15 +19,15 @@ public class VehicleController {
     @Autowired
     private VehicleService service;
 
-    @GetMapping(path = "search")
-    public ResponseEntity searchVehicle(String id) {
-        VehicleDTO dto = service.searchVehicle(id);
+    @GetMapping(path = "search/{id}")
+    public ResponseEntity searchVehicle(@PathVariable String id) {
+        VehicleDTO dto = service.searchVehicle(Long.valueOf(id));
         return new ResponseEntity(new StandardResponse("200", "Done", dto), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity saveVehicle(@RequestBody VehicleDTO dto) {
-        if (dto.getVehicleID().trim().length() <= 0) {
+        if (dto.getVehicleID() <= 0) {
             throw new NotFoundException("Rent Vehicle ID cannot be empty");
         }
         service.addVehicle(dto);
@@ -36,16 +36,16 @@ public class VehicleController {
 
     @PutMapping
     public ResponseEntity updateVehicle(@RequestBody VehicleDTO dto) {
-        if (dto.getVehicleID().trim().length() <= 0) {
+        if (dto.getVehicleID() <= 0) {
             throw new NotFoundException("No ID provided to update");
         }
         service.updateVehicle(dto);
         return new ResponseEntity(new StandardResponse("200", "Done", dto), HttpStatus.OK);
     }
 
-    @DeleteMapping
-    public ResponseEntity deleteVehicle(String id) {
-        service.deleteVehicle(id);
+    @DeleteMapping(path = "delete/{id}")
+    public ResponseEntity deleteVehicle(@PathVariable String id) {
+        service.deleteVehicle(Long.valueOf(id));
         return new ResponseEntity(new StandardResponse("200", "Done", null), HttpStatus.OK);
     }
 

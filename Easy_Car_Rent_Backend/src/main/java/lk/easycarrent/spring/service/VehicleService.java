@@ -8,9 +8,9 @@ import java.util.ArrayList;
 public interface VehicleService {
     void addVehicle(VehicleDTO dto);
 
-    void deleteVehicle(String id);
+    void deleteVehicle(Long id);
 
-    VehicleDTO searchVehicle(String id);
+    VehicleDTO searchVehicle(Long id);
 
     ArrayList<VehicleDTO> getAllVehicle();
 

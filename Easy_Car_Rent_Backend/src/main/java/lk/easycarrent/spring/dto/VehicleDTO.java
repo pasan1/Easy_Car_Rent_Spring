@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class VehicleDTO {
-    private String vehicleID;
+    private Long vehicleID;
     private String brand;
     private String model;
     private String type;
@@ -25,5 +25,9 @@ public class VehicleDTO {
     private double monthlyRent;
     private String dailyKM;
     private String monthlyKM;
-    private List<RentDTO> rentOrder;
+    private String fontView;
+    private String sideView;
+    private String backView;
+    private String interiorView;
+//    private List<RentDTO> rentOrder;
 }
