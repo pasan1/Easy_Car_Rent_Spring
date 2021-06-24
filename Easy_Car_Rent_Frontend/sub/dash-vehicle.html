@@ -14,7 +14,7 @@
   <style>
     #searchForm {
       position: relative;
-      width: 200px;
+      width: 95%;
     }
 
     #searchForm input {
@@ -115,11 +115,6 @@
       <label for="txtExtraFee" class="form-label">Extra Fee</label>
       <input type="number" class="form-control" id="txtExtraFee" placeholder="Enter Extra Fee">
     </div>
-<!--    <div class="col-md-12">-->
-<!--      <center>-->
-<!--        <hr width="98%">-->
-<!--      </center>-->
-<!--    </div>-->
     <div class="col-md-3">
       <label for="txtDailyRent" class="form-label">Daily Rent</label>
       <input type="number" class="form-control" id="txtDailyRent" placeholder="Enter Daily Rent">
@@ -176,7 +171,7 @@
 <h2>List</h2>
 <div class="container-fluid">
   <form class="row g-3" id="searchForm">
-    <input type="text" class="form-control" id="txtSearch" placeholder="Search by Name">
+    <input type="text" class="form-control" id="txtSearch" placeholder="Search by Register Number">
     <button type="reset" id="btnSearchClear">&times;</button>
   </form>
 </div>
@@ -184,16 +179,18 @@
   <table class="table table-striped table-sm table-hover">
     <thead>
     <tr>
-      <th>Customer ID</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>NIC</th>
-      <th>Driver Licence No</th>
-      <th>Address</th>
-      <th>Contact Number</th>
+      <th>Vehicle ID</th>
+      <th>Register Number</th>
+      <th>Brand</th>
+      <th>Model</th>
+      <th>Type</th>
+      <th>Color</th>
+      <th>Transmission</th>
+      <th>Fuel</th>
+      <th>Passengers</th>
     </tr>
     </thead>
-    <tbody id="tblCustomer">
+    <tbody id="tblVehicle">
     </tbody>
   </table>
 </div>
@@ -213,19 +210,19 @@
 <script src="../js/main.js"></script>
 <script src="../js/dashboard.js"></script>
 <script>
-  var CUSTOMER_PATH = URL_PATH + "/easycarrent/vehicle";
+  var VEHICLE_PATH = URL_PATH + "/easycarrent/vehicle";
 
   $(document).ready(function () {
-    loadAllCustomerToTheTable();
+    loadAllVehicleToTheTable();
   })
 
-  function loadAllCustomerToTheTable() {
-    $('#tblCustomer>tr').off('click');
+  function loadAllVehicleToTheTable() {
+    $('#tblVehicle>tr').off('click');
 
-    $('#tblCustomer').empty();
+    $('#tblVehicle').empty();
 
     $.ajax({
-      url: CUSTOMER_PATH,
+      url: VEHICLE_PATH,
       dataType: 'json',
       type: 'get',
       cache: false,
@@ -235,43 +232,48 @@
         var event_data = '';
         $.each(data.data, function (index, value) {
           event_data += '<tr>';
-          event_data += '<td>' + value.customerID + '</td>';
-          event_data += '<td>' + value.firstName + '</td>';
-          event_data += '<td>' + value.lastName + '</td>';
-          event_data += '<td>' + value.nic + '</td>';
-          event_data += '<td>' + value.driveLicenseNumber + '</td>';
-          event_data += '<td>' + value.address + '</td>';
-          event_data += '<td>' + value.contactNumber + '</td>';
+          event_data += '<td>' + value.vehicleID + '</td>';
+          event_data += '<td>' + value.regNumber + '</td>';
+          event_data += '<td>' + value.brand + '</td>';
+          event_data += '<td>' + value.model + '</td>';
+          event_data += '<td>' + value.type + '</td>';
+          event_data += '<td>' + value.color + '</td>';
+          event_data += '<td>' + value.transmissionType + '</td>';
+          event_data += '<td>' + value.fuelType + '</td>';
+          event_data += '<td>' + value.passNumber + '</td>';
           event_data += '<tr>';
         });
-        $("#tblCustomer").append(event_data);
-        $('#tblCustomer>tr').css('cursor', 'pointer');
+        $("#tblVehicle").append(event_data);
+        $('#tblVehicle>tr').css('cursor', 'pointer');
 
-        $('#tblCustomer>tr').click(function () {
+        $('#tblVehicle>tr').click(function () {
           let id = $(this).children('td:eq(0)').text();
-          let fname = $(this).children('td:eq(1)').text();
-          let lname = $(this).children('td:eq(2)').text();
-          let nic = $(this).children('td:eq(3)').text();
-          let driverLicense = $(this).children('td:eq(4)').text();
-          let address = $(this).children('td:eq(5)').text();
-          let contact = $(this).children('td:eq(6)').text();
 
-          $('#lblCustomerID').text(id);
-          $('#txtFirstName').val(fname);
-          $('#txtLastName').val(lname);
-          $('#txtNic').val(nic);
-          $('#txtDrivingLicense').val(driverLicense);
-          $('#txtAddress').val(address);
-          $('#txtContactNumber').val(contact);
+          $('#lblVehicleID').text(id);
 
           $.ajax({
-            url: "http://localhost:8080/Easy_Car_Rent_Backend_war_exploded/easycarrent/customer/search/" + id,
+            url: VEHICLE_PATH+"/search/" + id,
             dataType: 'json',
             type: 'get',
             cache: false,
             success: function (data) {
-              let nicImage = data.data.nicImage;
-              document.getElementById('imgNic').setAttribute('src', '..' + getImgPath(nicImage));
+              $('#txtBrand').val(data.data.brand);
+              $('#txtModel').val(data.data.model);
+              $('#txtRegNumber').val(data.data.regNumber);
+              $('#txtColor').val(data.data.color);
+              $('#txtNoOfPassengers').val(data.data.passNumber);
+              $('#txtExtraFee').val(data.data.extraFee);
+              $('#txtDailyRent').val(data.data.dailyRent);
+              $('#txtDailyKM').val(data.data.dailyKM);
+              $('#txtMonthlyRent').val(data.data.monthlyRent);
+              $('#txtMonthlyKM').val(data.data.monthlyKM);
+              $('#cmbType').val(data.data.type);
+              $('#cmbTransmission').val(data.data.transmissionType);
+              $('#cmbFuel').val(data.data.fuelType);
+              document.getElementById('uploadFrontView').setAttribute('src', '..' + getImgPath(data.data.fontView));
+              document.getElementById('uploadBackView').setAttribute('src', '..' + getImgPath(data.data.sideView));
+              document.getElementById('uploadSideView').setAttribute('src', '..' + getImgPath(data.data.backView));
+              document.getElementById('uploadInteriorView').setAttribute('src', '..' + getImgPath(data.data.interiorView));
             }
           });
 
@@ -287,10 +289,10 @@
     let search = $('#txtSearch').val();
     console.log(search);
 
-    $('#tblCustomer').empty();
+    $('#tblVehicle').empty();
 
     $.ajax({
-      url: CUSTOMER_PATH + "/searchByName/" + search,
+      url: VEHICLE_PATH + "/searchByReg/" + search,
       dataType: 'json',
       type: 'get',
       cache: false,
@@ -300,43 +302,47 @@
         var event_data = '';
         $.each(data.data, function (index, value) {
           event_data += '<tr>';
-          event_data += '<td>' + value.customerID + '</td>';
-          event_data += '<td>' + value.firstName + '</td>';
-          event_data += '<td>' + value.lastName + '</td>';
-          event_data += '<td>' + value.nic + '</td>';
-          event_data += '<td>' + value.driveLicenseNumber + '</td>';
-          event_data += '<td>' + value.address + '</td>';
-          event_data += '<td>' + value.contactNumber + '</td>';
+          event_data += '<td>' + value.vehicleID + '</td>';
+          event_data += '<td>' + value.regNumber + '</td>';
+          event_data += '<td>' + value.brand + '</td>';
+          event_data += '<td>' + value.model + '</td>';
+          event_data += '<td>' + value.type + '</td>';
+          event_data += '<td>' + value.color + '</td>';
+          event_data += '<td>' + value.transmissionType + '</td>';
+          event_data += '<td>' + value.fuelType + '</td>';
+          event_data += '<td>' + value.passNumber + '</td>';
           event_data += '<tr>';
         });
-        $("#tblCustomer").append(event_data);
-        $('#tblCustomer>tr').css('cursor', 'pointer');
+        $("#tblVehicle").append(event_data);
+        $('#tblVehicle>tr').css('cursor', 'pointer');
 
-        $('#tblCustomer>tr').click(function () {
+        $('#tblVehicle>tr').click(function () {
           let id = $(this).children('td:eq(0)').text();
-          let fname = $(this).children('td:eq(1)').text();
-          let lname = $(this).children('td:eq(2)').text();
-          let nic = $(this).children('td:eq(3)').text();
-          let driverLicense = $(this).children('td:eq(4)').text();
-          let address = $(this).children('td:eq(5)').text();
-          let contact = $(this).children('td:eq(6)').text();
 
-          $('#lblCustomerID').text(id);
-          $('#txtFirstName').val(fname);
-          $('#txtLastName').val(lname);
-          $('#txtNic').val(nic);
-          $('#txtDrivingLicense').val(driverLicense);
-          $('#txtAddress').val(address);
-          $('#txtContactNumber').val(contact);
+          $('#lblVehicleID').text(id);
 
           $.ajax({
-            url: "http://localhost:8080/Easy_Car_Rent_Backend_war_exploded/easycarrent/customer/search/" + id,
+            url: VEHICLE_PATH+"/search/" + id,
             dataType: 'json',
             type: 'get',
             cache: false,
             success: function (data) {
-              let nicImage = data.data.nicImage;
-              document.getElementById('imgNic').setAttribute('src', '..' + getImgPath(nicImage));
+              $('#txtBrand').val(data.data.brand);
+              $('#txtModel').val(data.data.model);
+              $('#txtRegNumber').val(data.data.regNumber);
+              $('#txtColor').val(data.data.color);
+              $('#txtNoOfPassengers').val(data.data.passNumber);
+              $('#txtExtraFee').val(data.data.extraFee);
+              $('#txtDailyRent').val(data.data.dailyRent);
+              $('#txtDailyKM').val(data.data.dailyKM);
+              $('#txtMonthlyRent').val(data.data.monthlyRent);
+              $('#cmbType').val(data.data.type);
+              $('#cmbTransmission').val(data.data.transmissionType);
+              $('#cmbFuel').val(data.data.fuelType);
+              document.getElementById('uploadFrontView').setAttribute('src', '..' + getImgPath(data.data.fontView));
+              document.getElementById('uploadBackView').setAttribute('src', '..' + getImgPath(data.data.sideView));
+              document.getElementById('uploadSideView').setAttribute('src', '..' + getImgPath(data.data.backView));
+              document.getElementById('uploadInteriorView').setAttribute('src', '..' + getImgPath(data.data.interiorView));
             }
           });
 
@@ -349,102 +355,198 @@
   });
 
   $('#btnAdd').click(function () {
-    let customerID = $('#lblCustomerID').text();
-    let firstName = $('#txtFirstName').val();
-    let lastName = $('#txtLastName').val();
-    let nic = $('#txtNic').val();
-    let drivingLicense = $('#txtDrivingLicense').val();
-    let address = $('#txtAddress').val();
-    let contactNumber = $('#txtContactNumber').val();
+    let vehicleID = $('#lblVehicleID').text();
+    let brand = $('#txtBrand').val();
+    let model = $('#txtModel').val();
+    let regNumber = $('#txtRegNumber').val();
+    let color = $('#txtColor').val();
+    let noOfPassengers = $('#txtNoOfPassengers').val();
+    let extraFee = $('#txtExtraFee').val();
+    let dailyRent = $('#txtDailyRent').val();
+    let dailyKM = $('#txtDailyKM').val();
+    let monthlyRent = $('#txtMonthlyRent').val();
+    let monthlyKM = $('#txtMonthlyKM').val();
+    let type = $('#cmbType').val();
+    let transmission = $('#cmbTransmission').val();
+    let fuel = $('#cmbFuel').val();
 
-    var fileObject = $("#uploadNic")[0].files[0];
-    var fileName = $("#uploadNic")[0].files[0].name; //get file name
+    var fileObjectF = $("#uploadFrontView")[0].files[0];
+    var fileNameF = $("#uploadFrontView")[0].files[0].name; //get file name
+    var dataFrontView = new FormData();
+    dataFrontView.append("myFile", fileObjectF, fileNameF);
 
-    var data = new FormData();
-    data.append("myFile", fileObject, fileName);
+    var fileObjectB = $("#uploadBackView")[0].files[0];
+    var fileNameB = $("#uploadBackView")[0].files[0].name; //get file name
+    var dataBackView = new FormData();
+    dataBackView.append("myFile", fileObjectB, fileNameB);
 
+    var fileObjectS = $("#uploadSideView")[0].files[0];
+    var fileNameS = $("#uploadSideView")[0].files[0].name; //get file name
+    var dataSideView = new FormData();
+    dataSideView.append("myFile", fileObjectS, fileNameS);
 
-    if (uploadImage(data) !== "") {
-      $.ajax({
-        method: "POST",
-        url: CUSTOMER_PATH,
-        async: true,
-        contentType: 'application/json',
-        data: JSON.stringify({
-          firstName: firstName,
-          lastName: lastName,
-          nic: nic,
-          driveLicenseNumber: drivingLicense,
-          address: address,
-          contactNumber: contactNumber,
-          nicImage: uploadImage(data)
-          // rentOrder: null
-        }),
-        success: function (data) {
-          console.log(data.data);
-          clearForm();
-        }, error: function (data) {
-          alert("Customer : " + data.data);
+    var fileObjectI = $("#uploadInteriorView")[0].files[0];
+    var fileNameI = $("#uploadInteriorView")[0].files[0].name; //get file name
+    var dataInteriorView = new FormData();
+    dataInteriorView.append("myFile", fileObjectI, fileNameI);
+
+    var imgFrontView = uploadImage(dataFrontView);
+    var imgBackView = uploadImage(dataBackView);
+    var imgSideView = uploadImage(dataSideView);
+    var imgInteriorView = uploadImage(dataInteriorView);
+
+    if (imgFrontView !== "") {
+      if (imgBackView !== "") {
+        if (imgSideView !== "") {
+          if (imgInteriorView !== "") {
+            $.ajax({
+              method: "POST",
+              url: VEHICLE_PATH,
+              async: true,
+              contentType: 'application/json',
+              data: JSON.stringify({
+                brand: brand,
+                model: model,
+                type: type,
+                extraFee: extraFee,
+                regNumber: regNumber,
+                color: color,
+                passNumber: noOfPassengers,
+                transmissionType: transmission,
+                fuelType: fuel,
+                dailyRent: dailyRent,
+                monthlyRent: monthlyRent,
+                dailyKM: dailyKM,
+                monthlyKM: monthlyKM,
+                fontView: imgFrontView,
+                sideView: imgSideView,
+                backView: imgBackView,
+                interiorView: imgInteriorView
+                // rentOrder: null
+              }),
+              success: function (data) {
+                console.log(data.data);
+                clearForm();
+              }, error: function (data) {
+                alert("Vehicle : " + data.data);
+              }
+            });
+          } else {
+            alert("dataInteriorView -> File : " + imgInteriorView);
+          }
+        } else {
+          alert("dataSideView -> File : " + imgSideView);
         }
-      });
+      } else {
+        alert("dataBackView -> File : " + imgBackView);
+      }
     } else {
-      alert("$.session.get(\"imgPath\") -> File : " + data.data);
+      alert("dataFrontView -> File : " + imgFrontView);
     }
 
   });
 
   $('#btnUpdate').click(function () {
-    let customerID = $('#lblCustomerID').text();
-    let firstName = $('#txtFirstName').val();
-    let lastName = $('#txtLastName').val();
-    let nic = $('#txtNic').val();
-    let drivingLicense = $('#txtDrivingLicense').val();
-    let address = $('#txtAddress').val();
-    let contactNumber = $('#txtContactNumber').val();
+    let vehicleID = $('#lblVehicleID').text();
+    let brand = $('#txtBrand').val();
+    let model = $('#txtModel').val();
+    let regNumber = $('#txtRegNumber').val();
+    let color = $('#txtColor').val();
+    let noOfPassengers = $('#txtNoOfPassengers').val();
+    let extraFee = $('#txtExtraFee').val();
+    let dailyRent = $('#txtDailyRent').val();
+    let dailyKM = $('#txtDailyKM').val();
+    let monthlyRent = $('#txtMonthlyRent').val();
+    let monthlyKM = $('#txtMonthlyKM').val();
+    let type = $('#cmbType').val();
+    let transmission = $('#cmbTransmission').val();
+    let fuel = $('#cmbFuel').val();
 
-    var fileObject = $("#uploadNic")[0].files[0];
-    var fileName = $("#uploadNic")[0].files[0].name; //get file name
+    var fileObjectF = $("#uploadFrontView")[0].files[0];
+    var fileNameF = $("#uploadFrontView")[0].files[0].name; //get file name
+    var dataFrontView = new FormData();
+    dataFrontView.append("myFile", fileObjectF, fileNameF);
 
-    var data = new FormData();
-    data.append("myFile", fileObject, fileName);
+    var fileObjectB = $("#uploadBackView")[0].files[0];
+    var fileNameB = $("#uploadBackView")[0].files[0].name; //get file name
+    var dataBackView = new FormData();
+    dataBackView.append("myFile", fileObjectB, fileNameB);
+
+    var fileObjectS = $("#uploadSideView")[0].files[0];
+    var fileNameS = $("#uploadSideView")[0].files[0].name; //get file name
+    var dataSideView = new FormData();
+    dataSideView.append("myFile", fileObjectS, fileNameS);
+
+    var fileObjectI = $("#uploadInteriorView")[0].files[0];
+    var fileNameI = $("#uploadInteriorView")[0].files[0].name; //get file name
+    var dataInteriorView = new FormData();
+    dataInteriorView.append("myFile", fileObjectI, fileNameI);
+
+    var imgFrontView = uploadImage(dataFrontView);
+    var imgBackView = uploadImage(dataBackView);
+    var imgSideView = uploadImage(dataSideView);
+    var imgInteriorView = uploadImage(dataInteriorView);
 
 
-    if (uploadImage(data) !== "") {
-      $.ajax({
-        method: "PUT",
-        url: CUSTOMER_PATH,
-        async: true,
-        contentType: 'application/json',
-        data: JSON.stringify({
-          customerID: customerID,
-          firstName: firstName,
-          lastName: lastName,
-          nic: nic,
-          driveLicenseNumber: drivingLicense,
-          address: address,
-          contactNumber: contactNumber,
-          nicImage: uploadImage(data)
-          // rentOrder: null
-        }),
-        success: function (data) {
-          console.log(data.data);
-          clearForm();
-        }, error: function (data) {
-          alert("Customer : " + data.data);
+    if (imgFrontView !== "") {
+      if (imgBackView !== "") {
+        if (imgSideView !== "") {
+          if (imgInteriorView !== "") {
+            $.ajax({
+              method: "PUT",
+              url: VEHICLE_PATH,
+              async: true,
+              contentType: 'application/json',
+              data: JSON.stringify({
+                vehicleID: vehicleID,
+                brand: brand,
+                model: model,
+                type: type,
+                extraFee: extraFee,
+                regNumber: regNumber,
+                color: color,
+                passNumber: noOfPassengers,
+                transmissionType: transmission,
+                fuelType: fuel,
+                dailyRent: dailyRent,
+                monthlyRent: monthlyRent,
+                dailyKM: dailyKM,
+                monthlyKM: monthlyKM,
+                fontView: imgFrontView,
+                sideView: imgSideView,
+                backView: imgBackView,
+                interiorView: imgInteriorView
+                // rentOrder: null
+              }),
+              success: function (data) {
+                console.log(data.data);
+                clearForm();
+              }, error: function (data) {
+                alert("Vehicle : " + data.data);
+              }
+            });
+          } else {
+            alert("dataInteriorView -> File : " + imgInteriorView);
+          }
+        } else {
+          alert("dataSideView -> File : " + imgSideView);
         }
-      });
+      } else {
+        alert("dataBackView -> File : " + imgBackView);
+      }
     } else {
-      alert("$.session.get(\"imgPath\") -> File : " + data.data);
+      alert("dataFrontView -> File : " + imgFrontView);
     }
+
 
   });
 
   $('#btnDelete').click(function () {
-    let customerID = $('#lblCustomerID').text();
+    let vehicleID = $('#lblVehicleID').text();
 
     $.ajax({
       method: "DELETE",
-      url: CUSTOMER_PATH+"/delete/"+customerID,
+      url: VEHICLE_PATH+"/delete/"+vehicleID,
       async: true,
       success: function (data) {
         console.log(data.data);
@@ -484,7 +586,7 @@
   });
 
   $('#btnSearchClear').click(function () {
-    loadAllCustomerToTheTable();
+    loadAllVehicleToTheTable();
   });
 
   $('#btnClear').click(function () {
@@ -495,7 +597,7 @@
     $('#btnAdd').removeClass('d-none');
     $('#btnUpdate').addClass('d-none');
     $('#btnDelete').addClass('d-none');
-    loadAllCustomerToTheTable();
+    loadAllVehicleToTheTable();
     $('#lblVehicleID').text("###");
     document.getElementById('imgFrontView').setAttribute('src', "../asserts/img/temp1x1.jpg");
     document.getElementById('imgSideView').setAttribute('src', "../asserts/img/temp1x1.jpg");

@@ -58,6 +58,13 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
+    public ArrayList<VehicleDTO> searchByRegVehicle(String reg) {
+        List<Vehicle> all = repo.searchByRegVehicle(reg);
+        return mapper.map(all, new TypeToken<ArrayList<VehicleDTO>>() {
+        }.getType());
+    }
+
+    @Override
     public void updateVehicle(VehicleDTO dto) {
         if (repo.existsById(dto.getVehicleID())) {
             repo.save(mapper.map(dto, Vehicle.class));

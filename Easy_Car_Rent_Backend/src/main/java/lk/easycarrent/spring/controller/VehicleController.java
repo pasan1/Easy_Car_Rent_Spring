@@ -54,4 +54,10 @@ public class VehicleController {
         ArrayList<VehicleDTO> all = service.getAllVehicle();
         return new ResponseEntity(new StandardResponse("200", "Done", all), HttpStatus.OK);
     }
+
+    @GetMapping(path = "searchByReg/{id}")
+    public ResponseEntity searchByRegVehicle(@PathVariable String reg) {
+        ArrayList<VehicleDTO> all = service.searchByRegVehicle(reg);
+        return new ResponseEntity(new StandardResponse("200", "Done", all), HttpStatus.OK);
+    }
 }

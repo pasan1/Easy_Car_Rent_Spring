@@ -14,5 +14,7 @@ public interface VehicleService {
 
     ArrayList<VehicleDTO> getAllVehicle();
 
+    ArrayList<VehicleDTO> searchByRegVehicle(String reg);
+
     void updateVehicle(VehicleDTO dto);
 }

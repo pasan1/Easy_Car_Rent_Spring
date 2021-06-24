@@ -14,7 +14,7 @@
     <style>
         #searchForm {
             position: relative;
-            width: 200px;
+            width: 95%;
         }
 
         #searchForm input {
@@ -198,7 +198,7 @@
                     $('#txtContactNumber').val(contact);
 
                     $.ajax({
-                        url: "http://localhost:8080/Easy_Car_Rent_Backend_war_exploded/easycarrent/customer/search/" + id,
+                        url: CUSTOMER_PATH+"/search/" + id,
                         dataType: 'json',
                         type: 'get',
                         cache: false,
@@ -263,7 +263,7 @@
                     $('#txtContactNumber').val(contact);
 
                     $.ajax({
-                        url: "http://localhost:8080/Easy_Car_Rent_Backend_war_exploded/easycarrent/customer/search/" + id,
+                        url: CUSTOMER_PATH+"/search/" + id,
                         dataType: 'json',
                         type: 'get',
                         cache: false,

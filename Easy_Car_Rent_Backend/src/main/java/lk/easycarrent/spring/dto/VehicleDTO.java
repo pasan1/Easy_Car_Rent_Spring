@@ -30,4 +30,25 @@ public class VehicleDTO {
     private String backView;
     private String interiorView;
 //    private List<RentDTO> rentOrder;
+
+
+    public VehicleDTO(String brand, String model, String type, double extraFee, String regNumber, String color, String passNumber, String transmissionType, String fuelType, double dailyRent, double monthlyRent, String dailyKM, String monthlyKM, String fontView, String sideView, String backView, String interiorView) {
+        this.brand = brand;
+        this.model = model;
+        this.type = type;
+        this.extraFee = extraFee;
+        this.regNumber = regNumber;
+        this.color = color;
+        this.passNumber = passNumber;
+        this.transmissionType = transmissionType;
+        this.fuelType = fuelType;
+        this.dailyRent = dailyRent;
+        this.monthlyRent = monthlyRent;
+        this.dailyKM = dailyKM;
+        this.monthlyKM = monthlyKM;
+        this.fontView = fontView;
+        this.sideView = sideView;
+        this.backView = backView;
+        this.interiorView = interiorView;
+    }
 }
