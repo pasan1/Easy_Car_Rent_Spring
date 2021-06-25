@@ -1,8 +1,10 @@
 package lk.easycarrent.spring.controller;
 
 import lk.easycarrent.spring.dto.AdminDTO;
+import lk.easycarrent.spring.dto.UserDTO;
 import lk.easycarrent.spring.exception.NotFoundException;
 import lk.easycarrent.spring.service.AdminService;
+import lk.easycarrent.spring.service.UserService;
 import lk.easycarrent.spring.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,9 @@ public class AdminController {
     @Autowired
     private AdminService service;
 
+    @Autowired
+    private UserController userController;
+
     @GetMapping(path = "search/{id}")
     public ResponseEntity searchAdmin(@PathVariable String id) {
         AdminDTO dto = service.searchAdmin(id);
@@ -31,6 +36,12 @@ public class AdminController {
             throw new NotFoundException("Admin ID cannot be empty");
         }
         service.addAdmin(dto);
+        userController.saveUser(new UserDTO(
+                dto.getAdminID(),
+                dto.getUserName(),
+                dto.getPassword(),
+                "admin"
+        ));
         return new ResponseEntity(new StandardResponse("201", "Done", dto), HttpStatus.CREATED);
     }
 

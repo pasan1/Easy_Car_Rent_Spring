@@ -14,4 +14,6 @@ public class AdminDTO {
     private String address;
     private String contactNumber;
     private String nic;
+    private String userName;
+    private String password;
 }
