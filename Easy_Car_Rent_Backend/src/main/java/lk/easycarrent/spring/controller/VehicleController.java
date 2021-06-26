@@ -27,9 +27,9 @@ public class VehicleController {
 
     @PostMapping
     public ResponseEntity saveVehicle(@RequestBody VehicleDTO dto) {
-        if (dto.getVehicleID() <= 0) {
-            throw new NotFoundException("Rent Vehicle ID cannot be empty");
-        }
+//        if (dto.getVehicleID() <= 0) {
+//            throw new NotFoundException("Rent Vehicle ID cannot be empty");
+//        }
         service.addVehicle(dto);
         return new ResponseEntity(new StandardResponse("201", "Done", dto), HttpStatus.CREATED);
     }

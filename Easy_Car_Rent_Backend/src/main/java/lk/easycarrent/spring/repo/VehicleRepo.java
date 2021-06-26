@@ -11,4 +11,6 @@ import java.util.List;
 public interface VehicleRepo extends JpaRepository<Vehicle, Long> {
     @Query(value = "select * from Vehicle WHERE regNumber LIKE %:sReg%",nativeQuery = true)
     List<Vehicle> searchByRegVehicle(@Param("sReg") String reg);
+
+    boolean existsVehicleByRegNumber(String reg);
 }
